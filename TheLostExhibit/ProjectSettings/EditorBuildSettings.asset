@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MuseumRoomScene.unity
     guid: 433e943bdb57f71409424bd09605a840
   - enabled: 1
-    path: Assets/Scenes/WesternDemo.unity
+    path: Assets/Scenes/Level_1.unity
     guid: 8917b09489bf2664ea91a401c179b4ad
   m_configObjects: {}
