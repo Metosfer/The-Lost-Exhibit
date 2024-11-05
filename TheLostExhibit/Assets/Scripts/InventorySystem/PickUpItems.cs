@@ -45,7 +45,7 @@ public class PickUpItems : MonoBehaviour
                 Destroy(gameObject);
                 break;
             }
-
         }
+        inventory.GetComponentInChildren<Crafting>().Craft();
     }
 }

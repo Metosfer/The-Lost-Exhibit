@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3239462411674886187}
   - component: {fileID: 6234708993052312889}
   m_Layer: 5
-  m_Name: BlackCube Button 1
+  m_Name: 'Branch_quest_1 Button '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 7e24c06c0318e1b44beb755894cc5001, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240b1cdc9cc10d6409707daaf68215a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: BlackCube
+  itemName: Branch_quest_1
   itemPrefab: {fileID: 5204650231068292537, guid: 11ab6e27832e2b542b9134aa73ec8b0b,
     type: 3}
   offset: 4
