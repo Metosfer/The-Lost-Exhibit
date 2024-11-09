@@ -2,22 +2,18 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Movement")]
+    [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 7000f;
-    [SerializeField] private float jumpForce = 1000f;
     [SerializeField] private float groundDrag = 5f;
     [SerializeField] private float airMultiplier = 0.4f;
     [SerializeField] private float maxSpeed = 8f;
 
-    [Header("References")]
-    [SerializeField] private Animator animator; // Animator referansýný Inspector'dan atayacaðýz
-
-    private float horizontalInput;
-    private float verticalInput;
+    public float horizontalInput;
+    public float verticalInput;
     private Vector3 moveDirection;
     private Rigidbody rb;
     private Transform orientation;
-    private bool isGrounded;
+    private PlayerJump playerJump; // Zýplama scriptine referans
 
     private void Start()
     {
@@ -25,73 +21,23 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
 
         orientation = transform.Find("Orientation");
-        if (orientation == null)
-        {
-            Debug.LogError("Orientation objesi bulunamadý!");
-        }
+        playerJump = GetComponent<PlayerJump>();
 
-        // Eðer animator referansý atanmamýþsa, otomatik bul
-        if (animator == null)
-        {
-            animator = GetComponent<Animator>();
-            if (animator == null)
-            {
-                Debug.LogError("Animator component'i bulunamadý!");
-            }
-        }
+        if (orientation == null)
+            Debug.LogError("Orientation objesi bulunamadý!");
     }
 
     private void Update()
     {
         ProcessInputs();
         SpeedControl();
-        UpdateAnimations();
 
-        if (isGrounded)
-            rb.drag = groundDrag;
-        else
-            rb.drag = 0;
-
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            Jump();
-        }
-    }
-
-    private void UpdateAnimations()
-    {
-        // Hareket input'u varsa ve yerdeyse koþma animasyonunu çalýþtýr
-        if (horizontalInput != 0 || verticalInput != 0)
-        {
-            animator.SetBool("isRunning", true);
-        }
-        else
-        {
-            animator.SetBool("isRunning", false);
-        }
+        rb.drag = playerJump.IsGrounded ? groundDrag : 0; // Zýplama scriptinden yere temas bilgisini al
     }
 
     private void FixedUpdate()
     {
         MovePlayer();
-    }
-
-    private void OnCollisionStay(Collision collision)
-    {
-        // Ground tag'ine sahip objelerle temas kontrolü
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = true;
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        // Ground tag'li objeden ayrýlma kontrolü
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = false;
-        }
     }
 
     private void ProcessInputs()
@@ -106,15 +52,13 @@ public class PlayerMovement : MonoBehaviour
 
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        float currentForce = moveSpeed;
-        if (!isGrounded)
+        if (playerJump.IsGrounded)
         {
-            currentForce *= airMultiplier;
+            rb.velocity = new Vector3(moveDirection.normalized.x * maxSpeed, rb.velocity.y, moveDirection.normalized.z * maxSpeed);
         }
-
-        if (moveDirection != Vector3.zero)
+        else
         {
-            rb.AddForce(moveDirection.normalized * currentForce * Time.fixedDeltaTime, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * moveSpeed * airMultiplier * Time.fixedDeltaTime, ForceMode.Force);
         }
     }
 
@@ -127,11 +71,5 @@ public class PlayerMovement : MonoBehaviour
             Vector3 limitedVel = flatVel.normalized * maxSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
-    }
-
-    private void Jump()
-    {
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        isGrounded = false; // Zýplama anýnda hemen grounded'ý false yap
     }
 }
