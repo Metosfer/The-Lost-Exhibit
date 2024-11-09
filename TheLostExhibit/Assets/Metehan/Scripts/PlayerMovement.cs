@@ -15,8 +15,11 @@ public class PlayerMovement : MonoBehaviour
     private Transform orientation;
     private PlayerJump playerJump; // Zýplama scriptine referans
 
+    private PlayerAnimation playerAnimation;
+
     private void Start()
     {
+        playerAnimation = FindAnyObjectByType<PlayerAnimation>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -38,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+        AnimationStop();
     }
 
     private void ProcessInputs()
@@ -60,6 +64,21 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * airMultiplier * Time.fixedDeltaTime, ForceMode.Force);
         }
+    }
+
+    private void AnimationStop()
+    {
+        if (playerAnimation.pickingUpNow == true)
+        {
+            moveSpeed = 0;
+            maxSpeed = 0;
+        }
+        else
+        {
+            moveSpeed = 3f;
+            maxSpeed = 4f;
+        }
+
     }
 
     private void SpeedControl()

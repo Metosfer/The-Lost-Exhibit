@@ -9,12 +9,14 @@ public class PickUpItems : MonoBehaviour
     public GameObject itemButton;
     public string itemName;
 
-
+    private PlayerAnimation playerAnimation;
 
     void Start()
     {
         inventory = FindObjectOfType<InventoryController>();
+        playerAnimation = FindObjectOfType<PlayerAnimation>(); // PlayerAnimation referansýný bul
     }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -26,6 +28,8 @@ public class PickUpItems : MonoBehaviour
     public void PickUp()
     {
         Debug.Log("on PickUp");
+        playerAnimation?.SetPickUpState(true); // PickUp animasyonunu baþlat
+
         for (int i = 0; i < inventory.slots.Length; i++)
         {
             if (inventory.isFull[i] == true && inventory.slots[i].transform.GetComponent<Slot>().amount < inventory.stackLimit)

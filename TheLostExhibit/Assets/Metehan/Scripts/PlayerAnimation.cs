@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
@@ -5,6 +6,7 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private Animator animator;
     private PlayerMovement playerMovement;
     private PlayerJump playerJump;
+    public bool pickingUpNow = false;
 
     private void Start()
     {
@@ -34,5 +36,25 @@ public class PlayerAnimation : MonoBehaviour
 
         // Zýplama animasyonunu baþlatmak için zýplama durumu
         animator.SetBool("isJumping", playerJump.IsJumping);
+    }
+
+    public void SetPickUpState(bool state)
+    {
+        animator.SetBool("isPickingUp", state);
+         pickingUpNow = true;
+
+
+        if (state)
+        {
+            // PickUp animasyonu süresince `isPickingUp` aktif kalacak, ardýndan kapatýlacak
+            StartCoroutine(ResetPickUpState());
+        }
+    }
+
+    private IEnumerator ResetPickUpState()
+    {
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length); // Animasyon süresi kadar bekle
+        animator.SetBool("isPickingUp", false); // Animasyonu sonlandýr
+        pickingUpNow= false;
     }
 }
