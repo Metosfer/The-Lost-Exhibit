@@ -21,7 +21,17 @@ public class PickUpItems : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            inventory.hint.GetComponentInChildren<TextMeshProUGUI>().text = "Press E";
+            inventory.hint.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E)) PickUp();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            inventory.hint.SetActive(false);
         }
     }
 

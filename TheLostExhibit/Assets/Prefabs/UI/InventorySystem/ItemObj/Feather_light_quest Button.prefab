@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7021417093187525845}
   - component: {fileID: 4878624773978548062}
   m_Layer: 5
-  m_Name: RedCube Button
+  m_Name: Feather_light_quest Button 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,14 +60,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 29b91f6abd0dcc743a86462b22a49d8c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -133,7 +133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240b1cdc9cc10d6409707daaf68215a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: RedCube
-  itemPrefab: {fileID: 4674112267954647855, guid: 4fdc2b4631f76464886e91ff46f3eeec,
+  itemName: Feather_light_quest_1
+  itemPrefab: {fileID: 4674112267954647855, guid: ee446b0541c4ca847856814313c1fabe,
     type: 3}
-  offset: 0.3

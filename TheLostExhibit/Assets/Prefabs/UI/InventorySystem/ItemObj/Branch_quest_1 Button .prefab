@@ -136,4 +136,4 @@ MonoBehaviour:
   itemName: Branch_quest_1
   itemPrefab: {fileID: 5204650231068292537, guid: 11ab6e27832e2b542b9134aa73ec8b0b,
     type: 3}
-  offset: 4
+  offset: 0.2

@@ -30,7 +30,9 @@ public class Slot : MonoBehaviour
         {
             inventory.isFull[i] = false;
         }
+
     }
+
 
     public void DropItem()
     {

@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class SpawnItems : MonoBehaviour
 {
+    private InventoryController inventory;
     public string itemName;
     public GameObject itemPrefab;
-    public float offset = 1;
     private Transform player;
+
+    float offset = 1;
 
 
     void Start()
@@ -17,7 +19,7 @@ public class SpawnItems : MonoBehaviour
 
     public void SpawnDroppedItem()
     {
-        Vector3 playePos = new Vector3(player.position.x + Random.Range(0, offset), player.position.y + 1, player.position.z + offset);
+        Vector3 playePos = new Vector3(player.position.x + Random.Range(0, offset), player.position.y + 1, player.position.z + Random.Range(0, offset));
         Instantiate(itemPrefab, playePos, Quaternion.identity); 
     }
 }

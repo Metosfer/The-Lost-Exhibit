@@ -136,4 +136,4 @@ MonoBehaviour:
   itemName: Hoop_quest_1
   itemPrefab: {fileID: 4674112267954647855, guid: c0edaf10543d7d940873b305712a6060,
     type: 3}
-  offset: 4
+  offset: 2
