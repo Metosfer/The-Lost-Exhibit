@@ -35,7 +35,7 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetBool("isRunning", isMoving);
 
         // Zýplama animasyonunu baþlatmak için zýplama durumu
-        animator.SetBool("isJumping", playerJump.IsJumping);
+      //  animator.SetBool("isJumping", playerJump.IsJumping);
     }
 
     public void SetPickUpState(bool state)
