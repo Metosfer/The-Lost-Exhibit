@@ -36,6 +36,7 @@ public class SceneManager : MonoBehaviour
 
     private void LoadNextScene()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(2);
     }
+
 }
