@@ -8,13 +8,14 @@ public class PickUpItems : MonoBehaviour
     private InventoryController inventory;
     public GameObject itemButton;
     public string itemName;
-
     private PlayerAnimation playerAnimation;
+    private TutorialManager tutorialManager;
 
     void Start()
     {
         inventory = FindObjectOfType<InventoryController>();
-        playerAnimation = FindObjectOfType<PlayerAnimation>(); // PlayerAnimation referansýný bul
+        playerAnimation = FindObjectOfType<PlayerAnimation>();
+        tutorialManager = FindObjectOfType<TutorialManager>();
     }
 
     private void OnTriggerStay(Collider other)
@@ -23,7 +24,8 @@ public class PickUpItems : MonoBehaviour
         {
             inventory.hint.GetComponentInChildren<TextMeshProUGUI>().text = "Press E";
             inventory.hint.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.E)) PickUp();
+            if (Input.GetKeyDown(KeyCode.E))
+                PickUp();
         }
     }
 
@@ -38,7 +40,13 @@ public class PickUpItems : MonoBehaviour
     public void PickUp()
     {
         Debug.Log("on PickUp");
-        playerAnimation?.SetPickUpState(true); // PickUp animasyonunu baþlat
+        playerAnimation?.SetPickUpState(true);
+
+        // Eðer bu bilet ise tutorial metnini güncelle
+        if (itemName == "Ticket" && tutorialManager != null)
+        {
+            tutorialManager.OnTicketCollected();
+        }
 
         for (int i = 0; i < inventory.slots.Length; i++)
         {

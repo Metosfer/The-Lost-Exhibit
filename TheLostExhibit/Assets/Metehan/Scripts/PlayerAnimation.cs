@@ -8,11 +8,13 @@ public class PlayerAnimation : MonoBehaviour
     private PlayerJump playerJump;
     public bool pickingUpNow = false;
 
+    private readonly int isRunningHash = Animator.StringToHash("isRunning");
+    private readonly int isPickingUpHash = Animator.StringToHash("isPickingUp");
+
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
         playerJump = GetComponent<PlayerJump>();
-
         if (animator == null)
         {
             animator = GetComponent<Animator>();
@@ -30,31 +32,35 @@ public class PlayerAnimation : MonoBehaviour
 
     private void UpdateAnimations()
     {
-        // Koþma animasyonunu baþlatmak için hareket durumu
-        bool isMoving = playerMovement != null && (playerMovement.horizontalInput != 0 || playerMovement.verticalInput != 0);
-        animator.SetBool("isRunning", isMoving);
-
-        // Zýplama animasyonunu baþlatmak için zýplama durumu
-      //  animator.SetBool("isJumping", playerJump.IsJumping);
+        bool isMoving = playerMovement != null &&
+            (playerMovement.horizontalInput != 0 || playerMovement.verticalInput != 0);
+        animator.SetBool(isRunningHash, isMoving);
     }
 
     public void SetPickUpState(bool state)
     {
-        animator.SetBool("isPickingUp", state);
-         pickingUpNow = true;
-
-
         if (state)
         {
-            // PickUp animasyonu süresince `isPickingUp` aktif kalacak, ardýndan kapatýlacak
+            animator.SetBool(isPickingUpHash, true);
+            pickingUpNow = true;
             StartCoroutine(ResetPickUpState());
         }
     }
 
     private IEnumerator ResetPickUpState()
     {
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length); // Animasyon süresi kadar bekle
-        animator.SetBool("isPickingUp", false); // Animasyonu sonlandýr
-        pickingUpNow= false;
+        // Mevcut animasyon state'ini al
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        // Animasyonun bitmesini bekle
+        while (stateInfo.normalizedTime < 0.9f) // 0.9f kullanarak animasyonun neredeyse sonuna geldiðimizden emin oluyoruz
+        {
+            stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            yield return null;
+        }
+
+        // Animasyonu yumuþak bir þekilde sonlandýr
+        animator.SetBool(isPickingUpHash, false);
+        pickingUpNow = false;
     }
 }
