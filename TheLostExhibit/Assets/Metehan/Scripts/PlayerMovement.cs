@@ -1,12 +1,14 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField] private float moveSpeed = 7000f;
+    public float moveSpeed = 2f;
     [SerializeField] private float groundDrag = 5f;
     [SerializeField] private float airMultiplier = 0.4f;
-    [SerializeField] private float maxSpeed = 8f;
+    public float maxSpeed = 3f;
+    
 
     public float horizontalInput;
     public float verticalInput;
@@ -67,16 +69,20 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void AnimationStop()
+
     {
+        float oldSpeed = moveSpeed;
+        float oldMaxSpeed = maxSpeed;
         if (playerAnimation.pickingUpNow == true)
         {
-            moveSpeed = 0;
-            maxSpeed = 0;
+            
+            moveSpeed = 0f;
+            maxSpeed = 0f;
         }
         else
         {
-            moveSpeed = 3f;
-            maxSpeed = 4f;
+            moveSpeed = oldSpeed;
+            maxSpeed = oldMaxSpeed;
         }
 
     }
