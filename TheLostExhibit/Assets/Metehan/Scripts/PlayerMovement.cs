@@ -3,11 +3,12 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField] private float moveSpeed = 7000f;
+    
     [SerializeField] private float groundDrag = 5f;
     [SerializeField] private float airMultiplier = 0.4f;
-    [SerializeField] private float maxSpeed = 8f;
-
+    public float moveSpeed = 2f;
+    public  float maxSpeed = 2.5f;
+    //------------------------------------------
     public float horizontalInput;
     public float verticalInput;
     private Vector3 moveDirection;
@@ -68,6 +69,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void AnimationStop()
     {
+        float oldMoveSpeed = moveSpeed;
+        float oldMaxSpeed = maxSpeed;
         if (playerAnimation.pickingUpNow == true)
         {
             moveSpeed = 0;
@@ -75,8 +78,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            moveSpeed = 3f;
-            maxSpeed = 4f;
+            moveSpeed = oldMoveSpeed;
+            maxSpeed = oldMaxSpeed;
         }
 
     }
