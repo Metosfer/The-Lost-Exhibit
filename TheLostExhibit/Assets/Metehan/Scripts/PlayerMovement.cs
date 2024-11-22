@@ -3,11 +3,14 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
-    
     [SerializeField] private float groundDrag = 5f;
     [SerializeField] private float airMultiplier = 0.4f;
     public float moveSpeed = 2f;
-    public  float maxSpeed = 2.5f;
+    public float maxSpeed = 2.5f;
+
+    private float originalMoveSpeed; // Eski hýz deðerlerini saklamak için
+    private float originalMaxSpeed;
+
     //------------------------------------------
     public float horizontalInput;
     public float verticalInput;
@@ -29,6 +32,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (orientation == null)
             Debug.LogError("Orientation objesi bulunamadý!");
+
+        // Baþlangýç hýzlarýný sakla
+        originalMoveSpeed = moveSpeed;
+        originalMaxSpeed = maxSpeed;
     }
 
     private void Update()
@@ -41,8 +48,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MovePlayer();
         AnimationStop();
+        MovePlayer();
     }
 
     private void ProcessInputs()
@@ -69,19 +76,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void AnimationStop()
     {
-        float oldMoveSpeed = moveSpeed;
-        float oldMaxSpeed = maxSpeed;
-        if (playerAnimation.pickingUpNow == true)
+        if (playerAnimation.pickingUpNow)
         {
+            // Hýzý sýfýrla
             moveSpeed = 0;
             maxSpeed = 0;
         }
         else
         {
-            moveSpeed = oldMoveSpeed;
-            maxSpeed = oldMaxSpeed;
+            // Hýzý eski deðerlerine döndür
+            moveSpeed = originalMoveSpeed;
+            maxSpeed = originalMaxSpeed;
         }
-
     }
 
     private void SpeedControl()
