@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class PickUpItems : MonoBehaviour
     void Start()
     {
         inventory = FindObjectOfType<InventoryController>();
+
         playerAnimation = FindObjectOfType<PlayerAnimation>();
         tutorialManager = FindObjectOfType<TutorialManager>();
     }
@@ -22,9 +24,7 @@ public class PickUpItems : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            inventory.hint.GetComponentInChildren<TextMeshProUGUI>().text = "Press E";
-            inventory.hint.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKey(KeyCode.E))
                 PickUp();
         }
     }
@@ -39,7 +39,7 @@ public class PickUpItems : MonoBehaviour
 
     public void PickUp()
     {
-        Debug.Log("on PickUp");
+
         playerAnimation?.SetPickUpState(true);
 
         // Eðer bu bilet ise tutorial metnini güncelle
@@ -69,5 +69,34 @@ public class PickUpItems : MonoBehaviour
             }
         }
         inventory.GetComponentInChildren<Crafting>().Craft();
+        checkQuest();
+
+    }
+
+    public void checkQuest()
+    {
+        for (int i = 0; i < inventory.slots.Length; i++)
+        {
+            if (inventory.isFull[i] == true)
+            {
+                if (inventory.slots[i].transform.GetComponentInChildren<SpawnItems>().itemName == "Hoop_quest_1")
+                {
+                    itemName = inventory.slots[i].transform.GetComponentInChildren<SpawnItems>().itemName;
+                    InventoryEvents.PickUpItems(this);
+                }
+
+                if (inventory.slots[i].transform.GetComponentInChildren<SpawnItems>().itemName == "Rope_quest_1")
+                {
+                    itemName = inventory.slots[i].transform.GetComponentInChildren<SpawnItems>().itemName;
+                    InventoryEvents.PickUpItems(this);
+                }
+
+                if (inventory.slots[i].transform.GetComponentInChildren<SpawnItems>().itemName == "Feather_quest_1")
+                {
+                    itemName = inventory.slots[i].transform.GetComponentInChildren<SpawnItems>().itemName;
+                    InventoryEvents.PickUpItems(this);
+                }
+            }
+        }
     }
 }

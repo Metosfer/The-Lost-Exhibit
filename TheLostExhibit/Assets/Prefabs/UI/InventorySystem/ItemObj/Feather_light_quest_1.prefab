@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4958344874721103331}
   - component: {fileID: 769341379580815357}
   - component: {fileID: 3221222246408368117}
+  - component: {fileID: 5943786532457807260}
   m_Layer: 0
   m_Name: Feather_light_quest_1
   m_TagString: Untagged
@@ -49,6 +50,7 @@ MonoBehaviour:
   itemButton: {fileID: 3832980967624614197, guid: c685cbdf876d2b947a15f282ea8acdc1,
     type: 3}
   itemName: Feather_light_quest_1
+  quest: {fileID: 0}
 --- !u!135 &3221222246408368117
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -70,6 +72,24 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2.67
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5943786532457807260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4674112267954647855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0, b: 0.99296904, a: 1}
+  outlineWidth: 0.5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &8914663135071857550
 PrefabInstance:
   m_ObjectHideFlags: 0

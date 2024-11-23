@@ -14,11 +14,13 @@ public class Crafting : MonoBehaviour
     {
         for (int i = 0; i < inventory.slots.Length; i++)
         {
-            if (inventory.isFull[i] == true && inventory.slots[i].transform.GetComponentInChildren<SpawnItems>().itemName == itemName && inventory.slots[i].transform.GetComponentInChildren<Slot>().amount == 2)
+            if (inventory.isFull[i] == true && inventory.slots[i].transform.GetComponentInChildren<SpawnItems>().itemName == itemName && inventory.slots[i].transform.GetComponentInChildren<Slot>().amount == 3)
             {
                 Destroy(inventory.slots[i].transform.GetComponentInChildren<SpawnItems>().gameObject);
                 Instantiate(craftObj_Button, inventory.slots[i].transform, false);
                 inventory.slots[i].GetComponent<Slot>().amount = 1;
+
+                inventory.slots[i].transform.GetComponentInChildren<SpawnItems>().itemName = craftObj_Button.transform.GetComponentInChildren<SpawnItems>().itemName;
                 break;
             }
         }

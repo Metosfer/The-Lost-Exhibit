@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3925076379527984870}
   - component: {fileID: 6289767916787551452}
   - component: {fileID: 7427676288332684119}
+  - component: {fileID: 2962444772354482476}
   m_Layer: 0
   m_Name: Branch_quest_1
   m_TagString: Untagged
@@ -102,6 +103,7 @@ MonoBehaviour:
   itemButton: {fileID: 302301234649118992, guid: 218ece1e91f536843be8367257d3d9cb,
     type: 3}
   itemName: Branch_quest_1
+  quest: {fileID: 0}
 --- !u!135 &3925076379527984870
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -172,3 +174,21 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2534964839176971238, guid: f90e031cb0cfffd4793037f489e4657b, type: 3}
+--- !u!114 &2962444772354482476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5204650231068292537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0, b: 0.99296904, a: 1}
+  outlineWidth: 0.5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []

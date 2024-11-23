@@ -49,6 +49,7 @@ MonoBehaviour:
   itemButton: {fileID: 3832980967624614197, guid: 4c71b9d6e4a438a4e82fa8b6e438b41f,
     type: 3}
   itemName: Hoop_quest_1
+  quest: {fileID: 0}
 --- !u!135 &8535130708401758976
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -165,6 +166,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8524934450574345924}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1fa99c3798f932844b9f2a89dcac0212,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6324118680637034338}
   m_SourcePrefab: {fileID: 100100000, guid: 1fa99c3798f932844b9f2a89dcac0212, type: 3}
 --- !u!1 &8434033038374324600 stripped
 GameObject:
@@ -220,6 +225,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.16222586, y: 1.3961569, z: 1.3571748}
   m_Center: {x: -0.016240582, y: 0.009741842, z: 0.95142317}
+--- !u!114 &6324118680637034338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434033038374324600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0, b: 0.99296904, a: 1}
+  outlineWidth: 0.5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!4 &9097382231231796162 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1fa99c3798f932844b9f2a89dcac0212,

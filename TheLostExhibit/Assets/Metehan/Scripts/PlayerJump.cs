@@ -29,7 +29,7 @@ public class PlayerJump : MonoBehaviour
         
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Debug.Log(collision.collider.name);
+           // Debug.Log(collision.collider.name);
             IsGrounded = true;
             IsJumping = false; // Yere temas edince zýplama durumu sonlanýr
             animator.SetBool("isJumping", false);
