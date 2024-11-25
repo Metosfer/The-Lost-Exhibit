@@ -9,6 +9,7 @@ TagManager:
   - Wall
   - Ticket
   - Door
+  - Artifact
   layers:
   - Default
   - TransparentFX
