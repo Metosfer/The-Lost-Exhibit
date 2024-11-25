@@ -27,7 +27,7 @@ public class UIQuestBox : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (questPanel.active) questPanel.SetActive(false);
+            if (questPanel.activeSelf) questPanel.SetActive(false);
             else
             {
                 if (this.GetComponents<GiftForTheNewborn>().Length == 1) FillQuestPanel();

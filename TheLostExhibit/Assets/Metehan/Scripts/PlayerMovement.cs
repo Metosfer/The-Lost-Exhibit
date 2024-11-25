@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public float horizontalInput;
     public float verticalInput;
     private Vector3 moveDirection;
-    private Rigidbody rb;
+    public Rigidbody rb;
     private Transform orientation;
     private PlayerJump playerJump; // Zýplama scriptine referans
 
