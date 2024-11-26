@@ -122,7 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599981f13cc5fef49bb35962a0dd01d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemButton: {fileID: 8695406603105128590}
+  itemButton: {fileID: 3832980967624614197, guid: cca08a1dc13bed941924d8d11ff69a19,
+    type: 3}
   itemName: Ticket
 --- !u!54 &6041257799324905984
 Rigidbody:
