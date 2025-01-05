@@ -3,61 +3,75 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseManager : MonoBehaviour
+public class PauseMenu : MonoBehaviour
 {
-    public GameObject museumPausePanel; // Assign the MuseumScene pause panel in the Inspector
-    public GameObject defaultPausePanel; // Assign the default pause panel for other scenes in the Inspector
-    private bool isPaused = false;
+    public GameObject pauseMenuUI;       // The main pause menu panel
+    public GameObject confirmationPanel; // The confirmation panel
+    private bool isGamePaused = false;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isPaused)
+            if (isGamePaused)
             {
-                ResumeGame();
+                Resume();
             }
             else
             {
-                PauseGame();
+                Pause();
             }
         }
     }
 
-    void PauseGame()
+    public void Resume()
     {
-        isPaused = true;
-        Time.timeScale = 0; // Pause the game
-
-        string currentScene = SceneManager.GetActiveScene().name;
-
-        // Show the appropriate pause menu
-        if (currentScene == "MuseumScene")
-        {
-            museumPausePanel.SetActive(true);
-        }
-        else
-        {
-            defaultPausePanel.SetActive(true);
-        }
+        pauseMenuUI.SetActive(false);
+        confirmationPanel.SetActive(false); // Ensure confirmation panel is hidden
+        Time.timeScale = 1f;
+        isGamePaused = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
-    public void ResumeGame()
+    public void Pause()
     {
-        isPaused = false;
-        Time.timeScale = 1; // Resume the game
-
-        // Hide both panels
-        museumPausePanel.SetActive(false);
-        defaultPausePanel.SetActive(false);
+        pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        isGamePaused = true;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
-    public void QuitToMenu()
+    public void OpenConfirmationPanel()
     {
-        Time.timeScale = 1; // Resume time before quitting
-        SceneManager.LoadScene("Menu");
+        confirmationPanel.SetActive(true);
+        pauseMenuUI.SetActive(false); // Hide the pause menu
+    }
+
+    public void CloseConfirmationPanel()
+    {
+        confirmationPanel.SetActive(false);
+        pauseMenuUI.SetActive(true); // Show the pause menu again
+    }
+
+    public void LoadMainMenu()
+    {
+        Time.timeScale = 1f; // Reset time scale before changing scene
+        SceneManager.LoadScene("MainMenu"); // Replace with your main menu scene name
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false; // For testing in the Editor
+#endif
     }
 }
+
+
+
 
 
 
