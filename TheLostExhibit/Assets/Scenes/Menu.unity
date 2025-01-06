@@ -158,7 +158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -13.309}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 572, y: 296}
+  m_AnchoredPosition: {x: 530, y: 225}
   m_SizeDelta: {x: 100.3503, y: 94.6977}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &30432
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4285648639
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -899,7 +899,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -13.309}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 572, y: 296}
+  m_AnchoredPosition: {x: 530, y: 383}
   m_SizeDelta: {x: 100.3503, y: 94.6977}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &137265778
@@ -951,7 +951,7 @@ MonoBehaviour:
         m_MethodName: TogglePanel
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1962574677}
+          m_ObjectArgument: {fileID: 1097197150}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -1494,8 +1494,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 117b2df416bf7b6468a0901b072e2761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controlsPanel: {fileID: 0}
-  creditsPanel: {fileID: 0}
+  controlsPanel: {fileID: 1962574677}
+  creditsPanel: {fileID: 1097197150}
   transitionCanvas: {fileID: 0}
   transitionDuration: 3
 --- !u!4 &693111202
@@ -2013,7 +2013,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b75ba960641c4a84bb6c62b775ea8dea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 01193b6b6cdc1d34e85eff7660091116, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2207,7 +2207,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3d1c44bef4eda4747bdbae48af927f7a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aba333d0ffa654149b820d20ae2ab70b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
