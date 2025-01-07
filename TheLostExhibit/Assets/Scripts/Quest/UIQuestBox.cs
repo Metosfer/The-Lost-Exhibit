@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +43,14 @@ public class UIQuestBox : MonoBehaviour
         {
             QuestName.GetComponent<TextMeshProUGUI>().text = this.GetComponent<GiftForTheNewborn>().QuestName;
             QuestDescription.GetComponent<TextMeshProUGUI>().text = this.GetComponent<GiftForTheNewborn>().Description;
-        }else if (QuestGiver.GetComponent<QuestGiver>().Helped == true && QuestGiver.GetComponent<QuestGiver>().AssignedQuest == false) 
+
+            foreach (var desGoal in this.GetComponent<GiftForTheNewborn>().Goals)
+            {
+                QuestDescription.GetComponent<TextMeshProUGUI>().text += "\n\n" + desGoal.Description;
+            }
+
+        }
+        else if (QuestGiver.GetComponent<QuestGiver>().Helped && QuestGiver.GetComponent<QuestGiver>().AssignedQuest == false) 
         {
             QuestName.GetComponent<TextMeshProUGUI>().text = "Quest";
             QuestDescription.GetComponent<TextMeshProUGUI>().text = "You don't have a quest right now";

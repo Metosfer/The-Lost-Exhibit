@@ -10,6 +10,7 @@ TagManager:
   - Ticket
   - Door
   - Artifact
+  - Stone
   layers:
   - Default
   - TransparentFX
