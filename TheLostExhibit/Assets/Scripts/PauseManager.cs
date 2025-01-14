@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems; // Event system için gerekli
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pauseMenuUI;       // The main pause menu panel
-    public GameObject confirmationPanel; // The confirmation panel
+    public GameObject pauseMenuUI;
+    public GameObject confirmationPanel;
     private bool isGamePaused = false;
 
     void Update()
@@ -26,8 +27,14 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        // UI elementlerinin highlight durumunu sýfýrla
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
+
         pauseMenuUI.SetActive(false);
-        confirmationPanel.SetActive(false); // Ensure confirmation panel is hidden
+        confirmationPanel.SetActive(false);
         Time.timeScale = 1f;
         isGamePaused = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -46,32 +53,26 @@ public class PauseMenu : MonoBehaviour
     public void OpenConfirmationPanel()
     {
         confirmationPanel.SetActive(true);
-        pauseMenuUI.SetActive(false); // Hide the pause menu
+        pauseMenuUI.SetActive(false);
     }
 
     public void CloseConfirmationPanel()
     {
         confirmationPanel.SetActive(false);
-        pauseMenuUI.SetActive(true); // Show the pause menu again
+        pauseMenuUI.SetActive(true);
     }
 
     public void LoadMainMenu()
     {
-        Time.timeScale = 1f; // Reset time scale before changing scene
-        SceneManager.LoadScene("Menu"); // Replace with your main menu scene name
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Menu");
     }
 
     public void QuitGame()
     {
         Application.Quit();
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false; // For testing in the Editor
+        UnityEditor.EditorApplication.isPlaying = false;
 #endif
     }
 }
-
-
-
-
-
-
