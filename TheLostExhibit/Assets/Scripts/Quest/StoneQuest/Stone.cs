@@ -8,7 +8,11 @@ using static UnityEngine.Rendering.DebugUI.Table;
 public class StoneQuest : MonoBehaviour
 {
     public Transform[] stonePosition;
-    public TextMeshProUGUI text; 
+    public TextMeshProUGUI text;
+
+    public GameObject startImage;
+    public GameObject winImage;
+
 
     [HideInInspector] public Transform currentStonePosition;
     [HideInInspector] public int index;
@@ -22,11 +26,21 @@ public class StoneQuest : MonoBehaviour
 
     private void Start()
     {
+        winImage.SetActive(false);
         currentStonePosition = stonePosition[0];
         this.GetComponent<Animator>().enabled = false;
         index = 0;
         isInRotationStep = false;
 
+        StartCoroutine(waiter());
+
+    }
+
+    IEnumerator waiter()
+    { 
+        startImage.SetActive(true);
+        yield return new WaitForSeconds(4);
+        startImage.SetActive(false);
     }
 
     private void Update()
@@ -44,7 +58,7 @@ public class StoneQuest : MonoBehaviour
 
                 this.GetComponent<Animator>().enabled = true;
                 this.GetComponent<Animator>().Play("WinStoneQuest");
-                text.text = "Win";
+                winImage.SetActive(true);
             }
             else
             {
@@ -75,10 +89,6 @@ public class StoneQuest : MonoBehaviour
         {
             Ñonfirmation();
             if (index == 3) CheckTriggers();
-        }
-        else if (Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
