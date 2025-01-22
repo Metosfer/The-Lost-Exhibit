@@ -8,14 +8,14 @@ public class GiftForTheNewborn : Quest
     {
         Debug.Log("GiftForTheNewborn assigned.");
 
-        QuestName = "Gift For The Newborn";
-        Description = "Gather materials to help a mother make a dreamcatcher for her newborn";
+        QuestName = "GIFT FOR THE NEWBORN";
+        Description = "Gather materials to make a dreamcatcher for newborn baby";
 
         Goals = new List<Goal>
         {
-            new CollectionGoal (this, "Hoop_quest_1", "Collect Willow Hoop. To do this, you will need 3 Willow Branches. Follow a trail leading to a Willow Tree by the water.", false, 0, 1),
-            new CollectionGoal (this, "Rope_quest_1", "Collect Sinew Thread. Go to the leatherworker’s tent.", false, 0, 2),
-            new CollectionGoal (this, "Feather_quest_1", "Collect Feathers. Head into the forest.", false, 0, 4)
+            new CollectionGoal (this, "Hoop_quest_1", "CRAFT A HOOP. To do this, find 3 Branches.", false, 0, 1),
+            new CollectionGoal (this, "Rope_quest_1", "COLLECT SINEW THREAD. Look aroound the village.", false, 0, 2),
+            new CollectionGoal (this, "Feather_quest_1", "COLLECT FEATHERS. Head into the forest.", false, 0, 4)
 
         };
 
