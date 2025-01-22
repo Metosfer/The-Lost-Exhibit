@@ -2199,7 +2199,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: -275.4152}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2281,31 +2281,33 @@ MonoBehaviour:
     ENVIROMENT
     DESIGN
 
+    ENV. DES. (LEVEL_2)
 
     CAMERA CONTROLLER
 
     UI DESIGN
 
-    UI PROGRAMMING
+    UI
+    PROGRAMMING
 
 
     NPC PLACEMENT
 
-    SCENE
-    MANAGMENT
+    SCENE MANAGMENT
 
     QUEST SYSTEM
 
-    CRAFTING SYSTEM
+    CRAFTING
+    SYSTEM
 
     CHARACTERS ANIMATION
 
-    PLAYER
-    ANIMATION
+    PLAYER ANIMATION
 
     MUSIC
 
-    SOUND EFFECTS
+    SOUND
+    EFFECTS
 
     3D MODELING
 
@@ -2375,7 +2377,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: -277.2048}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
