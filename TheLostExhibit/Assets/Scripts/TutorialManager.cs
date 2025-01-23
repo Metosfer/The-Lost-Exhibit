@@ -11,6 +11,7 @@ public class TutorialManager : MonoBehaviour
     public Transform dropPoint;
     public GameObject ticketPrefab;
     public GameObject markedAreaPrefab; // Inspector'dan sürükleyip býrakýn
+    public TextMeshProUGUI reminderText;
 
     void Start()
     {
@@ -81,6 +82,7 @@ public class TutorialManager : MonoBehaviour
         if (!hasCollectedTicket)
         {
             tutorialText.text = "Press E to take your ticket";
+            reminderText.text = "If you stuck any point, press R to reset the level!!!";
         }
         else if (hasCollectedTicket && !isTicketDropped)
         {
@@ -89,6 +91,7 @@ public class TutorialManager : MonoBehaviour
         else if (isTicketDropped)
         {
             tutorialText.text = "Press E to interact with the door and enter the museum";
+            
         }
     }
 }
