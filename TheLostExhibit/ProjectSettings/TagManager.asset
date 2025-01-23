@@ -12,6 +12,8 @@ TagManager:
   - Artifact
   - Stone
   - Water
+  - Next
+  - NPC
   layers:
   - Default
   - TransparentFX

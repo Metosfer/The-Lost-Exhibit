@@ -6,8 +6,8 @@ public class SceneManagerScript : MonoBehaviour
 {
     public GameObject controlsPanel; // Assign in inspector
     public GameObject creditsPanel;  // Assign in inspector
-    public Canvas transitionCanvas;  // Assign in inspector
-    public float transitionDuration = 3.0f; // Duration for transition images
+
+    public QuestGiver questGiver; // Assign the NPC's QuestGiver script in the Inspector
 
     public void LoadScene(string sceneName)
     {
@@ -27,28 +27,6 @@ public class SceneManagerScript : MonoBehaviour
         panel.SetActive(!panel.activeSelf);
     }
 
-    public void LoadSceneWithTransition(string sceneName)
-    {
-        StartCoroutine(TransitionAndLoadScene(sceneName));
-    }
-
-    private IEnumerator TransitionAndLoadScene(string sceneName)
-    {
-        if (transitionCanvas != null)
-        {
-            transitionCanvas.gameObject.SetActive(true);
-        }
-
-        yield return new WaitForSeconds(transitionDuration);
-
-        if (transitionCanvas != null)
-        {
-            transitionCanvas.gameObject.SetActive(false);
-        }
-
-        SceneManager.LoadScene(sceneName);
-    }
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -63,14 +41,21 @@ public class SceneManagerScript : MonoBehaviour
                 }
                 else if (hit.collider.CompareTag("Artifact"))
                 {
-                    LoadSceneWithTransition("Level_1");
+                    LoadScene("Level_1");
                 }
-                else if (hit.collider.CompareTag("NPC"))
+                else if ((hit.collider.CompareTag("NPC")) && (questGiver != null && questGiver.Helped))
                 {
-                    LoadSceneWithTransition("Level_2");
+                    LoadScene("InBetweenScene");
+                     
+                }
+                else
+                {
+                    Debug.Log("You need to complete the quest first!");
                 }
             }
         }
     }
 }
+
+
 

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public class QuestGiver : MonoBehaviour
 {
@@ -17,9 +16,10 @@ public class QuestGiver : MonoBehaviour
 
     [SerializeField]
     private string questType;
+
     private Quest Quest { get; set; }
 
-    public void Update()
+    private void Update()
     {
         if (!AssignedQuest && !Helped) clue.GetComponent<MeshFilter>().mesh = hasQuest;
         if (AssignedQuest && !Helped) clue.GetComponent<MeshFilter>().mesh = waitQuest;
@@ -31,14 +31,14 @@ public class QuestGiver : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                Debug.Log("Interact");
+                Debug.Log("Interacting with NPC...");
                 Interact();
             }
         }
     }
-    public  void Interact()
-    {
 
+    public void Interact()
+    {
         if (!AssignedQuest && !Helped)
         {
             AssignQuest();
@@ -47,32 +47,34 @@ public class QuestGiver : MonoBehaviour
         {
             CheckQuest();
         }
+        else if (Helped)
+        {
+            // Automatically load the InBetweenScene if the quest is completed
+            Debug.Log("Quest completed! Loading InBetweenScene...");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("InBetweenScene");
+        }
     }
 
-    void AssignQuest()
+    private void AssignQuest()
     {
         AssignedQuest = true;
         Quest = (Quest)quests.AddComponent(System.Type.GetType(questType));
+        Debug.Log("Quest assigned: " + questType);
     }
 
-    void CheckQuest()
+    private void CheckQuest()
     {
-
-        Debug.Log(Quest.Completed);
-        if (Quest.Completed)
+        if (Quest != null && Quest.Completed)
         {
-            clue.SetActive(false);
-            Debug.Log("Complete quest" + "  " + Quest.Description);
-            //можно добавить награду или что либо еще
+            Debug.Log("Quest completed! Returning to NPC...");
+            clue.SetActive(false); // Hide the quest clue
             Helped = true;
             AssignedQuest = false;
         }
         else
         {
-            Debug.Log("Not yet complete");
-            //символ вопроса над нпц
-            // что-то что скажет что гг еще помогает, нпц ожидает помощи
+            Debug.Log("Quest not yet complete. Keep working!");
         }
     }
-
 }
+
