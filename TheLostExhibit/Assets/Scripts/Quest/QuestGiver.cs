@@ -51,7 +51,7 @@ public class QuestGiver : MonoBehaviour
         {
             // Automatically load the InBetweenScene if the quest is completed
             Debug.Log("Quest completed! Loading InBetweenScene...");
-            UnityEngine.SceneManagement.SceneManager.LoadScene("InBetweenScene");
+            
         }
     }
 
@@ -60,6 +60,7 @@ public class QuestGiver : MonoBehaviour
         AssignedQuest = true;
         Quest = (Quest)quests.AddComponent(System.Type.GetType(questType));
         Debug.Log("Quest assigned: " + questType);
+        
     }
 
     private void CheckQuest()
@@ -70,10 +71,12 @@ public class QuestGiver : MonoBehaviour
             clue.SetActive(false); // Hide the quest clue
             Helped = true;
             AssignedQuest = false;
+            UnityEngine.SceneManagement.SceneManager.LoadScene(4);
         }
         else
         {
             Debug.Log("Quest not yet complete. Keep working!");
+            
         }
     }
 }

@@ -9,6 +9,13 @@ public class SceneManagerScript : MonoBehaviour
 
     public QuestGiver questGiver; // Assign the NPC's QuestGiver script in the Inspector
 
+    private void Start()
+    {
+        // Mouse'u görünür yap ve kilidini aç
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
@@ -46,7 +53,6 @@ public class SceneManagerScript : MonoBehaviour
                 else if ((hit.collider.CompareTag("NPC")) && (questGiver != null && questGiver.Helped))
                 {
                     LoadScene("InBetweenScene");
-                     
                 }
                 else
                 {
@@ -56,6 +62,3 @@ public class SceneManagerScript : MonoBehaviour
         }
     }
 }
-
-
-
