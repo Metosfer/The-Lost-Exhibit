@@ -43,7 +43,7 @@ public class StoneQuest : MonoBehaviour
         // Если показывается startImage, игнорируем клики на камни
         if (startImage.activeSelf) return;
         if (isInRotationStep) RotateStone();
-        if (text.text == "LOOSE\nR FOR RESTART" && Input.GetKeyDown(KeyCode.R)) RestartGame();
+        if (text.text == "FAIL\nR FOR RESTART" && Input.GetKey(KeyCode.R)) RestartGame();
     }
 
     public void CheckTriggers()
@@ -56,7 +56,7 @@ public class StoneQuest : MonoBehaviour
         }
         else // Если что-то не так
         {
-            text.text = "LOOSE\nR FOR RESTART"; // Выводим сообщение о проигрыше
+            text.text = "FAIL\nR FOR RESTART"; // Выводим сообщение о проигрыше
         }
     }
 
