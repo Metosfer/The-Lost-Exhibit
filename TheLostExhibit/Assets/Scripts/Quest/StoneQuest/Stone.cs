@@ -3,26 +3,22 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEngine.Rendering.DebugUI.Table;
 
 public class StoneQuest : MonoBehaviour
 {
-    public Transform[] stonePosition;
-    public TextMeshProUGUI text;
+    public Transform[] stonePosition; // Массив с позициями камней
+    public TextMeshProUGUI text; // Текст для вывода результата
 
-    public GameObject startImage;
-    public GameObject winImage;
+    public GameObject startImage; // Изображение начала
+    public GameObject winImage; // Изображение победы
 
+    [HideInInspector] public Transform currentStonePosition; // Текущая позиция камня
+    [HideInInspector] public int index; // Индекс текущего камня
 
-    [HideInInspector] public Transform currentStonePosition;
-    [HideInInspector] public int index;
+    [HideInInspector] public GameObject currentStone; // Текущий камень
 
-
-    [HideInInspector] public GameObject currentStone;
-
-    [HideInInspector] public bool isInRotationStep;
-    [HideInInspector] public bool[] checkRotation = new bool [3] {false, false, false};
-
+    [HideInInspector] public bool isInRotationStep; // Флаг, указывающий, что идет вращение
+    [HideInInspector] public bool[] checkRotation = new bool[3] { false, false, false }; // Массив для проверки вращения
 
     private void Start()
     {
@@ -31,81 +27,96 @@ public class StoneQuest : MonoBehaviour
         this.GetComponent<Animator>().enabled = false;
         index = 0;
         isInRotationStep = false;
-
-        StartCoroutine(waiter());
-
+        StartCoroutine(WaitForStart());
     }
 
-    IEnumerator waiter()
-    { 
+    IEnumerator WaitForStart()
+    {
         startImage.SetActive(true);
-        yield return new WaitForSeconds(4);
-        startImage.SetActive(false);
+        yield return new WaitForSeconds(4);  // Время показа стартового изображения
+        startImage.SetActive(false);  // Скрываем стартовое изображение
+
     }
 
     private void Update()
     {
+        // Если показывается startImage, игнорируем клики на камни
+        if (startImage.activeSelf) return;
         if (isInRotationStep) RotateStone();
+        if (text.text == "LOOSE\nR FOR RESTART" && Input.GetKeyDown(KeyCode.R)) RestartGame();
     }
 
     public void CheckTriggers()
     {
-
-        if (index == 3)
+        if (checkRotation[0] && checkRotation[1] && checkRotation[2]) // Если все камни в нужном положении
         {
-            if (checkRotation[0] && checkRotation[1] && checkRotation[2])
-            {
-
-                this.GetComponent<Animator>().enabled = true;
-                this.GetComponent<Animator>().Play("WinStoneQuest");
-                winImage.SetActive(true);
-            }
-            else
-            {
-                text.text = "Loose";
-            }
+            this.GetComponent<Animator>().enabled = true;
+            this.GetComponent<Animator>().Play("WinStoneQuest");
+            winImage.SetActive(true); // Победа
+        }
+        else // Если что-то не так
+        {
+            text.text = "LOOSE\nR FOR RESTART"; // Выводим сообщение о проигрыше
         }
     }
 
+
     private void RotateStone()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        // Вращение по оси Yaw (основа вращения вокруг Y)
+        if (Input.GetKeyDown(KeyCode.A)) // Поворот влево (по Y)
         {
-            currentStone.transform.Rotate(0, currentStone.transform.rotation.y + 90, 0);
+            currentStone.transform.Rotate(0, 90, 0); // Поворот по оси Y (Yaw)
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKeyDown(KeyCode.D)) // Поворот вправо (по Y)
         {
-            currentStone.transform.Rotate(0, currentStone.transform.rotation.y - 90, 0);
+            currentStone.transform.Rotate(0, -90, 0); // Поворот по оси Y (Yaw)
         }
-        else if (Input.GetKeyDown(KeyCode.W))
+
+        // Вращение по оси Pitch (вверх/вниз)
+        else if (Input.GetKeyDown(KeyCode.W)) // Поворот вверх (по X)
         {
-            currentStone.transform.Rotate(0, 0, currentStone.transform.rotation.z + 90);
+            currentStone.transform.Rotate(90, 0, 0); // Поворот по оси X (Pitch)
         }
-        else if (Input.GetKeyDown(KeyCode.S))
+        else if (Input.GetKeyDown(KeyCode.S)) // Поворот вниз (по X)
         {
-            currentStone.transform.Rotate(0, 0, currentStone.transform.rotation.z - 90);
+            currentStone.transform.Rotate(-90, 0, 0); // Поворот по оси X (Pitch)
         }
-        else if (Input.GetKeyDown(KeyCode.Return))
+
+        // Вращение по оси Roll (вокруг оси Z)
+        else if (Input.GetKeyDown(KeyCode.Q)) // Поворот по часовой стрелке (по Z)
         {
-            Сonfirmation();
+            currentStone.transform.Rotate(0, 0, 90); // Поворот по оси Z (Roll)
+        }
+        else if (Input.GetKeyDown(KeyCode.E)) // Поворот против часовой стрелки (по Z)
+        {
+            currentStone.transform.Rotate(0, 0, -90); // Поворот по оси Z (Roll)
+        }else if (Input.GetKeyDown(KeyCode.Return))
+        {
+            ConfirmPlacement();
             if (index == 3) CheckTriggers();
         }
     }
 
-    private void Сonfirmation()
+    private void ConfirmPlacement()
     {
-        isInRotationStep = false;
+        isInRotationStep = false; // Останавливаем вращение
 
+        // Проверяем, что камень правильно расположен и правильно ориентирован
         if (currentStone.transform.eulerAngles.x > -10 && currentStone.transform.eulerAngles.x < 10 &&
             currentStone.transform.eulerAngles.y > -10 && currentStone.transform.eulerAngles.y < 10 &&
             currentStone.transform.eulerAngles.z > -10 && currentStone.transform.eulerAngles.z < 10)
         {
-            checkRotation[index] = true;
-
+            checkRotation[index] = true; // Отмечаем, что вращение правильное
         }
-        
-        index++;
-        if (index < stonePosition.Length) currentStonePosition = stonePosition[index];
+
+        index++; // Переходим к следующему камню
+        if (index < stonePosition.Length) currentStonePosition = stonePosition[index]; // Обновляем позицию для следующего камня
     }
 
+    // Метод для перезапуска игры
+    private void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Перезагружаем текущую сцену
+    }
 }

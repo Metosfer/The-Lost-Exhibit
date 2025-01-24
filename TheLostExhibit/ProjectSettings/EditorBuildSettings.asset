@@ -23,4 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level_2.unity
     guid: 1e1982325965fbe428a6acd500728390
+  - enabled: 1
+    path: Assets/Scenes/StoneQuestScene.unity
+    guid: ee9d65fcf6bb40c4f8768db3df088e7a
+  - enabled: 1
+    path: Assets/Scenes/FireQuest.unity
+    guid: 7699034de7d04eb48a51ac69bc076a03
   m_configObjects: {}

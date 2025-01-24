@@ -12,15 +12,18 @@ public class SelectedEvent : MonoBehaviour
         isClicked = false;
     }
 
-    public  void OnMouseDown()
+    // Обработчик клика по камню
+    public void OnMouseDown()
     {
         if (stoneQuest.isInRotationStep == false && isClicked == false)
         {
+            // Перемещаем камень на текущую позицию
             this.gameObject.transform.position = stoneQuest.currentStonePosition.position;
-            isClicked = true;
-            stoneQuest.currentStone = this.gameObject;
-            stoneQuest.isInRotationStep = true;
-            this.gameObject.GetComponent<SelectedEvent>().enabled = false;
+            isClicked = true; // Отмечаем, что камень был кликнут
+            stoneQuest.currentStone = this.gameObject; // Устанавливаем текущий камень
+            stoneQuest.isInRotationStep = true; // Включаем этап вращения
+            this.gameObject.GetComponent<SelectedEvent>().enabled = false; // Отключаем кнопку
         }
     }
 }
+
