@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FireQuest : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class FireQuest : MonoBehaviour
     // Хранит выбранные объекты
     private GameObject firstSelected = null;
     private GameObject secondSelected = null;
+
+
+    public GameObject failPanel;
+    [TextArea] public string failText;
 
     public GameObject startImage;
     public GameObject winImage;
@@ -25,6 +30,8 @@ public class FireQuest : MonoBehaviour
 
     private void Start()
     {
+
+        failPanel.SetActive(false);
         winImage.SetActive(false);
         startFlag = false;
         StartCoroutine(waiter());
@@ -87,7 +94,8 @@ public class FireQuest : MonoBehaviour
         }
         else
         {
-            text.text = "Loose";
+            text.text = failText;
+            failPanel.SetActive(true);
             startFlag = false;
         }
     }
@@ -122,5 +130,10 @@ public class FireQuest : MonoBehaviour
             firstSelected = null;
             secondSelected = null;
         }
+    }
+    // Метод для перезапуска игры
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Перезагружаем текущую сцену
     }
 }
