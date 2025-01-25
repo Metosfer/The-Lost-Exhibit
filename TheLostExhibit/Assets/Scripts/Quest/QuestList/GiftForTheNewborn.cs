@@ -14,8 +14,8 @@ public class GiftForTheNewborn : Quest
         Goals = new List<Goal>
         {
             new CollectionGoal (this, "Hoop_quest_1", "CRAFT A HOOP. To do this, find 3 Branches.", false, 0, 1),
-            new CollectionGoal (this, "Rope_quest_1", "COLLECT SINEW THREAD. Look aroound the village.", false, 0, 2),
-            new CollectionGoal (this, "Feather_quest_1", "COLLECT FEATHERS. Head into the forest.", false, 0, 4)
+            new CollectionGoal (this, "Rope_quest_1", "COLLECT 2 SINEW THREAD. Look aroound the village.", false, 0, 2),
+            new CollectionGoal (this, "Feather_quest_1", "COLLECT 4 FEATHERS. Head into the forest.", false, 0, 4)
 
         };
 

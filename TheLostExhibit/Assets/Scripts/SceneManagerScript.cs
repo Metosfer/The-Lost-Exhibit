@@ -50,6 +50,10 @@ public class SceneManagerScript : MonoBehaviour
                 {
                     LoadScene("Level_1");
                 }
+                else if (hit.collider.CompareTag("Stones"))
+                {
+                    LoadScene("StoneQuestScene");
+                }
                 else if ((hit.collider.CompareTag("NPC")) && (questGiver != null && questGiver.Helped))
                 {
                     LoadScene("InBetweenScene");
