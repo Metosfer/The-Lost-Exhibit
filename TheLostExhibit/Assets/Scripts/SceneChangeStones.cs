@@ -5,14 +5,34 @@ using UnityEngine.SceneManagement;
 
 public class SceneChangeStone : MonoBehaviour
 {
+    private bool isPlayerInTrigger = false;
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                SceneManager.LoadScene(6);
-            }
+            isPlayerInTrigger = true;
+            Debug.Log("Player entered trigger");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            isPlayerInTrigger = false;
+            Debug.Log("Player exited trigger");
+        }
+    }
+
+    private void Update()
+    {
+        if (isPlayerInTrigger && Input.GetKeyDown(KeyCode.E))
+        {
+            Time.timeScale = 0;
+            SceneManager.LoadScene(6);
+            
+
         }
     }
 }

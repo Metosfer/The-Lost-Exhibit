@@ -9,8 +9,10 @@ public class Baslangic : MonoBehaviour
     public float imageDuration = 3f;
     public GameObject stones;
     public GameObject questionMark;
+    public GameObject cheeringNPC;
     public void Start()
     {
+        cheeringNPC.SetActive(false);
         startImage.SetActive(false);
         stones.SetActive(false);
     }
@@ -20,6 +22,7 @@ public class Baslangic : MonoBehaviour
     {
         if (start.gameObject.CompareTag("Player") && !isQuestFinished)
         {
+            cheeringNPC.SetActive(true);
             questionMark.SetActive(false);
             stones.SetActive(true);
             startImage.SetActive(true);

@@ -46,18 +46,7 @@ public class SceneManagerScript : MonoBehaviour
                 {
                     LoadScene("MuseumRoomScene");
                 }
-                else if (hit.collider.CompareTag("Artifact"))
-                {
-                    LoadScene("Level_1");
-                }
-                else if (hit.collider.CompareTag("Stones"))
-                {
-                    LoadScene("StoneQuestScene");
-                }
-                else if (hit.collider.CompareTag("Fire"))
-                {
-                    LoadScene("FireQuest");
-                }
+
                 else if ((hit.collider.CompareTag("NPC")) && (questGiver != null && questGiver.Helped))
                 {
                     LoadScene("InBetweenScene");
