@@ -6,24 +6,24 @@ using UnityEngine.SceneManagement;
 
 public class StoneQuest : MonoBehaviour
 {
-    public Transform[] stonePosition; // Массив с позициями камней
+    public Transform[] stonePosition; 
     public Transform[] stones;
-    public TextMeshProUGUI text; // Текст для вывода результата
+    public TextMeshProUGUI text; 
 
     public GameObject failPanel;
 
-    public GameObject startImage; // Изображение начала
-    public GameObject winImage; // Изображение победы
+    public GameObject startImage; 
+    public GameObject winImage; 
 
    [TextArea] public string failText;
 
-    [HideInInspector] public Transform currentStonePosition; // Текущая позиция камня
-    [HideInInspector] public int index; // Индекс текущего камня
+    [HideInInspector] public Transform currentStonePosition; 
+    [HideInInspector] public int index; 
 
-    [HideInInspector] public GameObject currentStone; // Текущий камень
+    [HideInInspector] public GameObject currentStone; 
 
-    [HideInInspector] public bool isInRotationStep; // Флаг, указывающий, что идет вращение
-    [HideInInspector] public bool[] checkRotation = new bool[3] { false, false, false }; // Массив для проверки вращения
+    [HideInInspector] public bool isInRotationStep; 
+    [HideInInspector] public bool[] checkRotation = new bool[3] { false, false, false }; 
 
     private void Start()
     {
@@ -39,14 +39,14 @@ public class StoneQuest : MonoBehaviour
     IEnumerator WaitForStart()
     {
         startImage.SetActive(true);
-        yield return new WaitForSeconds(4);  // Время показа стартового изображения
-        startImage.SetActive(false);  // Скрываем стартовое изображение
+        yield return new WaitForSeconds(2);  
+        startImage.SetActive(false);  
 
     }
 
     private void Update()
     {
-        // Если показывается startImage, игнорируем клики на камни
+        
         if (startImage.activeSelf) return;
         if (isInRotationStep) RotateStone();
     }
@@ -56,42 +56,42 @@ public class StoneQuest : MonoBehaviour
         if (checkRotation[0] && checkRotation[1] && checkRotation[2]
             && Vector3.Distance(stones[0].position, stonePosition[0].position) < 0.1f
             && Vector3.Distance(stones[1].position, stonePosition[1].position) < 0.1f
-            && Vector3.Distance(stones[2].position, stonePosition[2].position) < 0.1f) // Если все камни в нужном положении
+            && Vector3.Distance(stones[2].position, stonePosition[2].position) < 0.1f) 
         {
             this.GetComponent<Animator>().enabled = true;
             this.GetComponent<Animator>().Play("WinStoneQuest");
-            winImage.SetActive(true); // Победа
+            winImage.SetActive(true); 
         }
-        else // Если что-то не так
+        else 
         {
 
             failPanel.SetActive(true);
-            text.text = failText; // Выводим сообщение о проигрыше
+            text.text = failText; 
         }
     }
 
     private void ConfirmPlacement()
     {
-        isInRotationStep = false; // Останавливаем вращение
+        isInRotationStep = false; 
 
-        // Проверяем, что камень правильно расположен и правильно ориентирован
+        
         if (IsAngleCorrect(currentStone.transform.eulerAngles.x) &&
             IsAngleCorrect(currentStone.transform.eulerAngles.y) &&
             IsAngleCorrect(currentStone.transform.eulerAngles.z))
         {
-            checkRotation[index] = true; // Отмечаем, что вращение правильное
+            checkRotation[index] = true; 
         }
 
-        index++; // Переходим к следующему камню
-        if (index < stonePosition.Length) currentStonePosition = stonePosition[index]; // Обновляем позицию для следующего камня
+        index++; 
+        if (index < stonePosition.Length) currentStonePosition = stonePosition[index]; 
     }
 
     private bool IsAngleCorrect(float angle)
     {
-        // Приводим угол в диапазон от 0 до 360
+        
         angle = (angle + 360) % 360;
 
-        // Угол должен быть в пределах ±10 градусов от 0, 180, 360 или -180
+        
         return Mathf.Abs(Mathf.DeltaAngle(angle, 0)) < 10f ||
                Mathf.Abs(Mathf.DeltaAngle(angle, 180)) < 10f ||
                Mathf.Abs(Mathf.DeltaAngle(angle, 360)) < 10f ||
@@ -102,34 +102,34 @@ public class StoneQuest : MonoBehaviour
 
     private void RotateStone()
     {
-        // Вращение по оси Yaw (основа вращения вокруг Y)
-        if (Input.GetKeyDown(KeyCode.A)) // Поворот влево (по Y)
+        
+        if (Input.GetKeyDown(KeyCode.A)) 
         {
-            currentStone.transform.Rotate(0, 90, 0); // Поворот по оси Y (Yaw)
+            currentStone.transform.Rotate(0, 90, 0); 
         }
-        else if (Input.GetKeyDown(KeyCode.D)) // Поворот вправо (по Y)
+        else if (Input.GetKeyDown(KeyCode.D)) 
         {
-            currentStone.transform.Rotate(0, -90, 0); // Поворот по оси Y (Yaw)
-        }
-
-        // Вращение по оси Pitch (вверх/вниз)
-        else if (Input.GetKeyDown(KeyCode.W)) // Поворот вверх (по X)
-        {
-            currentStone.transform.Rotate(90, 0, 0); // Поворот по оси X (Pitch)
-        }
-        else if (Input.GetKeyDown(KeyCode.S)) // Поворот вниз (по X)
-        {
-            currentStone.transform.Rotate(-90, 0, 0); // Поворот по оси X (Pitch)
+            currentStone.transform.Rotate(0, -90, 0); 
         }
 
-        // Вращение по оси Roll (вокруг оси Z)
-        else if (Input.GetKeyDown(KeyCode.Q)) // Поворот по часовой стрелке (по Z)
+        
+        else if (Input.GetKeyDown(KeyCode.W)) 
         {
-            currentStone.transform.Rotate(0, 0, 90); // Поворот по оси Z (Roll)
+            currentStone.transform.Rotate(90, 0, 0); 
         }
-        else if (Input.GetKeyDown(KeyCode.E)) // Поворот против часовой стрелки (по Z)
+        else if (Input.GetKeyDown(KeyCode.S)) 
         {
-            currentStone.transform.Rotate(0, 0, -90); // Поворот по оси Z (Roll)
+            currentStone.transform.Rotate(-90, 0, 0); 
+        }
+
+        
+        else if (Input.GetKeyDown(KeyCode.Q)) 
+        {
+            currentStone.transform.Rotate(0, 0, 90); 
+        }
+        else if (Input.GetKeyDown(KeyCode.E)) 
+        {
+            currentStone.transform.Rotate(0, 0, -90); 
         }else if (Input.GetKeyDown(KeyCode.Return))
         {
             ConfirmPlacement();
@@ -138,9 +138,9 @@ public class StoneQuest : MonoBehaviour
     }
 
 
-    // Метод для перезапуска игры
+    
     public void RestartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Перезагружаем текущую сцену
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

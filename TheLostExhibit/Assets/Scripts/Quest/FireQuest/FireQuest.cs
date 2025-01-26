@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class FireQuest : MonoBehaviour
 {
-    // Список объектов, которыми можно взаимодействовать
+    
     public List<GameObject> swapObjects;
 
-    // Хранит выбранные объекты
+    
     private GameObject firstSelected = null;
     private GameObject secondSelected = null;
 
@@ -25,7 +25,7 @@ public class FireQuest : MonoBehaviour
 
 
 
-    // Список правильных позиций объектов (заполняется вручную)
+    
     public List<Vector3> correctPositions;
 
     private void Start()
@@ -40,30 +40,30 @@ public class FireQuest : MonoBehaviour
     IEnumerator waiter()
     {
         startImage.SetActive(true);
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(2);
         startImage.SetActive(false);
         startFlag = true;
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && startFlag) // Проверка клика левой кнопкой мыши
+        if (Input.GetMouseButtonDown(0) && startFlag) 
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // Луч из камеры в точку клика
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); 
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit)) // Проверка на попадание в объект
+            if (Physics.Raycast(ray, out hit)) 
             {
-                if (swapObjects.Contains(hit.collider.gameObject)) // Проверка, что объект в списке
+                if (swapObjects.Contains(hit.collider.gameObject)) 
                 {
                     HandleObjectSelection(hit.collider.gameObject);
                 }
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Return)) // Проверка нажатия клавиши Enter
+        if (Input.GetKeyDown(KeyCode.Return)) 
         {
-            CheckOrder(); // Проверка правильного порядка объектов
+            CheckOrder(); 
         }
     }
 
@@ -111,7 +111,7 @@ public class FireQuest : MonoBehaviour
         {
             secondSelected = selectedObject;
 
-            SwapPositions(); // Меняем местами
+            SwapPositions(); 
         }
     }
 
@@ -119,21 +119,21 @@ public class FireQuest : MonoBehaviour
     {
         if (firstSelected != null && secondSelected != null)
         {
-            // Меняем позиции объектов
+            
             Vector3 tempPosition = firstSelected.transform.position;
             firstSelected.transform.position = secondSelected.transform.position;
             secondSelected.transform.position = tempPosition;
 
             firstSelected.GetComponent<OutlineCustom>().enabled = false;
 
-            // Сбрасываем выбор
+            
             firstSelected = null;
             secondSelected = null;
         }
     }
-    // Метод для перезапуска игры
+    
     public void RestartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Перезагружаем текущую сцену
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
