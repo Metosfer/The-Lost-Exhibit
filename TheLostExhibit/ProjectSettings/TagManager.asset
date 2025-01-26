@@ -17,6 +17,7 @@ TagManager:
   - Stones
   - Finger
   - PlayerFinger
+  - Fire
   layers:
   - Default
   - TransparentFX

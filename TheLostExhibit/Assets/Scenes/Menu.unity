@@ -1496,8 +1496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlsPanel: {fileID: 1962574677}
   creditsPanel: {fileID: 1097197150}
-  transitionCanvas: {fileID: 0}
-  transitionDuration: 3
+  questGiver: {fileID: 0}
 --- !u!4 &693111202
 Transform:
   m_ObjectHideFlags: 0
@@ -2015,7 +2014,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 01193b6b6cdc1d34e85eff7660091116, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a90b1b760ef88734d90ec6380e2ba076, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2067,7 +2066,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 9.091}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -203.98462, y: 159.9646}
+  m_AnchoredPosition: {x: 59.01538, y: 118.9646}
   m_SizeDelta: {x: 344.4562, y: 344.6093}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1388185053
@@ -2247,7 +2246,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 9.091}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -360, y: 135}
+  m_AnchoredPosition: {x: -97, y: 94}
   m_SizeDelta: {x: 344.4562, y: 344.6093}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1711946827

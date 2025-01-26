@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ChangeScene : MonoBehaviour
+public class ChangeSceneArtifact : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
