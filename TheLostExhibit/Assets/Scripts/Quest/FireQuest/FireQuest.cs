@@ -90,7 +90,7 @@ public class FireQuest : MonoBehaviour
         {
             winImage.SetActive(true);
             startFlag = false;
-
+            SceneManager.LoadScene(8);
         }
         else
         {
