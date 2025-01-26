@@ -14,6 +14,7 @@ public class AIController : MonoBehaviour
 
     public float speedWalk = 6f;
     public float speedRun = 9f;
+    public float patrolSpeed = 3f; // Devriye hýzý
 
     public float viewRadius = 15f;
     public float viewAngle = 90f;
@@ -41,6 +42,7 @@ public class AIController : MonoBehaviour
 
     public int health = 30; // NPC'nin caný
     private bool isDead = false; // Ölüm durumu bayraðý
+    private bool isWalking = false; // Yürüme durumu bayraðý
 
     void Start()
     {
@@ -59,7 +61,7 @@ public class AIController : MonoBehaviour
         if (waypoints.Length > 0)
         {
             navMeshAgent.isStopped = false;
-            navMeshAgent.speed = speedWalk;
+            navMeshAgent.speed = patrolSpeed;
             navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
             animator.SetBool("isIdle", true); // Baþlangýçta idle animasyonu tetikleniyor
         }
@@ -96,6 +98,7 @@ public class AIController : MonoBehaviour
             navMeshAgent.SetDestination(m_PlayerPosition);
             animator.SetBool("isRunning", true); // Koþma animasyonu tetikleniyor
             animator.SetBool("isIdle", false); // Idle animasyonu durduruluyor
+            animator.SetBool("isWalking", false); // Yürüme animasyonu durduruluyor
         }
 
         if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
@@ -104,7 +107,7 @@ public class AIController : MonoBehaviour
             {
                 m_IsPatrol = true;
                 m_PlayerNear = false;
-                Move(speedWalk);
+                Move(patrolSpeed);
                 m_TimeToRotate = timeToRotate;
                 m_WaitTime = startWaitTime;
                 if (waypoints.Length > 0)
@@ -113,6 +116,7 @@ public class AIController : MonoBehaviour
                 }
                 animator.SetBool("isRunning", false); // Koþma animasyonu durduruluyor
                 animator.SetBool("isIdle", true); // Idle animasyonu tetikleniyor
+                animator.SetBool("isWalking", false); // Yürüme animasyonu durduruluyor
             }
             else
             {
@@ -137,7 +141,7 @@ public class AIController : MonoBehaviour
         {
             if (m_TimeToRotate <= 0)
             {
-                Move(speedWalk);
+                Move(patrolSpeed);
                 LookingPlayer(playerLastPosition);
             }
             else
@@ -158,7 +162,7 @@ public class AIController : MonoBehaviour
                     if (m_WaitTime <= 0)
                     {
                         NextPoint();
-                        Move(speedWalk);
+                        Move(patrolSpeed);
                         m_WaitTime = startWaitTime;
                     }
                     else
@@ -166,7 +170,12 @@ public class AIController : MonoBehaviour
                         Stop();
                         m_WaitTime -= Time.deltaTime;
                         animator.SetBool("isIdle", true); // Idle animasyonu tetikleniyor
+                        animator.SetBool("isWalking", false); // Yürüme animasyonu durduruluyor
                     }
+                }
+                else
+                {
+                    Move(patrolSpeed); // Devriye gezerken isWalking parametresini çalýþtýr
                 }
             }
         }
@@ -177,7 +186,8 @@ public class AIController : MonoBehaviour
         navMeshAgent.isStopped = false;
         navMeshAgent.speed = speed;
         animator.SetBool("isRunning", speed == speedRun); // Koþma animasyonu durumu güncelleniyor
-        animator.SetBool("isIdle", speed != speedRun); // Idle animasyonu durumu güncelleniyor
+        animator.SetBool("isIdle", false); // Idle animasyonu durumu güncelleniyor
+        animator.SetBool("isWalking", speed == patrolSpeed); // Yürüme animasyonu durumu güncelleniyor
     }
 
     void Stop()
@@ -186,13 +196,14 @@ public class AIController : MonoBehaviour
         navMeshAgent.speed = 0;
         animator.SetBool("isRunning", false); // Koþma animasyonu durduruluyor
         animator.SetBool("isIdle", true); // Idle animasyonu tetikleniyor
+        animator.SetBool("isWalking", false); // Yürüme animasyonu durduruluyor
     }
 
     public void NextPoint()
     {
         if (waypoints.Length > 0)
         {
-            m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
+            m_CurrentWaypointIndex = Random.Range(0, waypoints.Length); // Rastgele bir hedef seç
             navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
         }
     }
@@ -210,7 +221,7 @@ public class AIController : MonoBehaviour
             if (m_WaitTime <= 0)
             {
                 m_PlayerNear = false;
-                Move(speedWalk);
+                Move(patrolSpeed);
                 if (waypoints.Length > 0)
                 {
                     navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
@@ -282,7 +293,6 @@ public class AIController : MonoBehaviour
         StartCoroutine(WaitForAnimationAndDestroy());
         animator.SetTrigger("isDead"); // Ölüm animasyonu tetikleniyor
         navMeshAgent.isStopped = true; // NavMeshAgent'ý durdur
-        
     }
 
     private IEnumerator WaitForAnimationAndDestroy()
@@ -293,6 +303,3 @@ public class AIController : MonoBehaviour
         Destroy(gameObject, 10f);
     }
 }
-
-
-

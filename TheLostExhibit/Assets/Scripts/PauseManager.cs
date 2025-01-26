@@ -8,6 +8,8 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenuUI;
     public GameObject confirmationPanel;
+    public GameObject firstPauseButton; // Pause menüdeki ilk buton
+    public GameObject firstConfirmationButton; // Onay panelindeki ilk buton
     private bool isGamePaused = false;
 
     void Update()
@@ -48,18 +50,36 @@ public class PauseMenu : MonoBehaviour
         isGamePaused = true;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        // Ýlk butonu seç
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.SetSelectedGameObject(firstPauseButton);
+        }
     }
 
     public void OpenConfirmationPanel()
     {
         confirmationPanel.SetActive(true);
         pauseMenuUI.SetActive(false);
+
+        // Onay panelindeki ilk butonu seç
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.SetSelectedGameObject(firstConfirmationButton);
+        }
     }
 
     public void CloseConfirmationPanel()
     {
         confirmationPanel.SetActive(false);
         pauseMenuUI.SetActive(true);
+
+        // Pause menüdeki ilk butonu tekrar seç
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.SetSelectedGameObject(firstPauseButton);
+        }
     }
 
     public void LoadMainMenu()
