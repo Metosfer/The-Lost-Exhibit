@@ -8,17 +8,22 @@ public class StartTrigger : MonoBehaviour
     public GameObject endImage;
     public bool questFinished = false;
     public GameObject stones;
+    public GameObject endNPC;
     void Start()
     {
         
         endImage.SetActive(false);
     }
 
-
+    private void Update()
+    {
+        Destroy(endNPC, 5f);
+    }
     private void OnTriggerEnter(Collider end)
     {
         if (end.tag == "Player" && questFinished==false)
         {
+            
             stones.SetActive(false);
             endImage.SetActive(true);
            questFinished = true;

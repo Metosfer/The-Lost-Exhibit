@@ -5,15 +5,29 @@ using UnityEngine.SceneManagement;
 
 public class ChangeSceneArtifact : MonoBehaviour
 {
+    private bool isPlayerInTrigger = false;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            if(Input.GetKeyDown(KeyCode.E))
-            {
-                SceneManager.LoadScene(3);
-            }
-                
+            isPlayerInTrigger = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerInTrigger = false;
+        }
+    }
+
+    private void Update()
+    {
+        if (isPlayerInTrigger && Input.GetKeyDown(KeyCode.E))
+        {
+            SceneManager.LoadScene(3);
         }
     }
 }
