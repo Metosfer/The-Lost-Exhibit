@@ -8,7 +8,6 @@ public class PlayerJump : MonoBehaviour
 
     private Rigidbody rb;
     public bool IsGrounded { get; private set; } // Yere temas bilgisini dýþarýya açar
-    public bool IsJumping { get; private set; } // Zýplama bilgisini dýþarýya açar
 
     private void Start()
     {
@@ -20,19 +19,15 @@ public class PlayerJump : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded)
         {
             Jump();
-            
         }
     }
 
     private void OnCollisionStay(Collision collision)
     {
-        
         if (collision.gameObject.CompareTag("Ground"))
         {
-           // Debug.Log(collision.collider.name);
             IsGrounded = true;
-            IsJumping = false; // Yere temas edince zýplama durumu sonlanýr
-            animator.SetBool("isJumping", false);
+            animator.ResetTrigger("isJumping");
         }
     }
 
@@ -41,15 +36,13 @@ public class PlayerJump : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             IsGrounded = false;
-            IsJumping = true; // Yerden ayrýldýðýnda zýplama durumu baþlar
         }
     }
 
     private void Jump()
     {
-        animator.SetBool("isJumping", true);
+        animator.SetTrigger("isJumping");
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         IsGrounded = false;
-        IsJumping = true; // Zýplama anýnda isJumping true olur
     }
 }
