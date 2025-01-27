@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class StoneQuest : MonoBehaviour
 {
+
     public Transform[] stonePosition; 
     public Transform[] stones;
     public TextMeshProUGUI text; 
@@ -27,6 +28,9 @@ public class StoneQuest : MonoBehaviour
 
     private void Start()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         failPanel.SetActive(false); 
         winImage.SetActive(false);
         currentStonePosition = stonePosition[0];
@@ -46,7 +50,6 @@ public class StoneQuest : MonoBehaviour
 
     private void Update()
     {
-        
         if (startImage.activeSelf) return;
         if (isInRotationStep) RotateStone();
     }
@@ -60,7 +63,10 @@ public class StoneQuest : MonoBehaviour
         {
             this.GetComponent<Animator>().enabled = true;
             this.GetComponent<Animator>().Play("WinStoneQuest");
-            winImage.SetActive(true); 
+            winImage.SetActive(true);
+
+            Time.timeScale = 0;
+            SceneManager.LoadScene("Level_2");
         }
         else 
         {
@@ -69,6 +75,8 @@ public class StoneQuest : MonoBehaviour
             text.text = failText; 
         }
     }
+
+
 
     private void ConfirmPlacement()
     {

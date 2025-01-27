@@ -29,10 +29,7 @@ public class SceneChangeStone : MonoBehaviour
     {
         if (isPlayerInTrigger && Input.GetKeyDown(KeyCode.E))
         {
-            
-            SceneManager.LoadScene(6);
-            
-
+            SceneManager.LoadScene(6);       
         }
     }
 }
